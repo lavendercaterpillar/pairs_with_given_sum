@@ -70,6 +70,9 @@ def pairs_with_given_sum(numbers, target):
         if not isinstance(target, int) or target <= 0:
             raise ValueError("Oops! Please enter the target as a non-negative integer.")
         
+        if not isinstance(numbers, list):
+            raise ValueError("Oops! Please enter numbers as a list.")
+        
         for num in numbers:
             if not isinstance(num, int) or num < 0:
                 raise ValueError(f"Invalid input in the list: {num}. All numbers must be positive integers.")
@@ -96,4 +99,4 @@ def pairs_with_given_sum(numbers, target):
 # print(pairs_with_given_sum([3,3,3,3],6))
 # print(pairs_with_given_sum([6,3,0,3,6],6))
 # print(pairs_with_given_sum([2,4,2,4],6))
-print(pairs_with_given_sum([2,4,4,2],6))
+# print(pairs_with_given_sum([2,4,4,2],6))
