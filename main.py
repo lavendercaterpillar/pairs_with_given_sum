@@ -14,8 +14,8 @@ A4, function raise TypeError for invalid input.
 Q5. How will function handle the invalid numbers list?
 A5. It raise an Error with message "Please inter integer numbers"
 
-Q6. What happens if the list contains duplicate numbers?
-A6. we want to count each pair only once.
+Q6. does function counts duplicate pairs in the list?
+A6. if pairs have different indices then Yes. (Exm. [3,3,3],6 => 3 pairs)
 
 Q7. Does order of pairs matter?
 A7. yes
@@ -67,22 +67,23 @@ making the algorithm much faster for large inputs.
 def pairs_with_given_sum(numbers, target):
     try:
         # Validate input types
-        if not isinstance(target, int) or target < 0:
+        if not isinstance(target, int) or target <= 0:
             raise ValueError("Oops! Please enter the target as a non-negative integer.")
         
         for num in numbers:
             if not isinstance(num, int) or num < 0:
                 raise ValueError(f"Invalid input in the list: {num}. All numbers must be positive integers.")
         
-        seen_numbers = set()  # To track numbers we've seen
         pairs = 0
+        seen_numbers = {} # changed from set() to Dict to include key/values
         
-        # Iterate through the list
         for num in numbers:
-            complement = target - num  # The number we need to form a valid pair
+            complement = target - num
             if complement in seen_numbers:
-                pairs += 1
-            seen_numbers.add(num)  # Add the current number to the set
+                # Count as many times as complement has occurred
+                pairs += seen_numbers[complement]
+            # Update how many times num has appeared
+            seen_numbers[num] = seen_numbers.get(num, 0) + 1
         
         return pairs
     
@@ -92,5 +93,7 @@ def pairs_with_given_sum(numbers, target):
 
 # print(pairs_with_given_sum(["1"],6)) 
 # print(pairs_with_given_sum([1,5,1],6))
-print(pairs_with_given_sum([3,3,3,3],6))
+# print(pairs_with_given_sum([3,3,3,3],6))
 # print(pairs_with_given_sum([6,3,0,3,6],6))
+# print(pairs_with_given_sum([2,4,2,4],6))
+print(pairs_with_given_sum([2,4,4,2],6))
